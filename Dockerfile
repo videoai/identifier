@@ -30,16 +30,17 @@ RUN apt-get update && apt-get -y install \
                        vlc  \
                        libvlc-dev \
                        libvlccore-dev \ 
+                       vim \
              && rm -rf /var/lib/apt/lists/*
 
              
  # Install the latest Identifier package
 RUN ls -al
-RUN wget https://www.dropbox.com/s/n8ko51np6knt1r0/SmartVis_Identifier-1.1.0.1322.fe9164-Linux.deb \
+RUN wget https://www.dropbox.com/s/u1sh6wzotu239dz/SmartVis_Identifier-1.1.0.1319.fe9164-Linux.deb \
          --progress=bar:force:noscroll \
          -q \
          --show-progress
-RUN dpkg -i SmartVis_Identifier-1.1.0.1322.fe9164-Linux.deb
+RUN dpkg -i SmartVis_Identifier-1.1.0.1319.fe9164-Linux.deb
 
 # Run as identifier user
 RUN export uid=1000 gid=1000 && \
