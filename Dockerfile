@@ -31,16 +31,17 @@ RUN apt-get update && apt-get -y install \
                        libvlc-dev \
                        libvlccore-dev \ 
                        vim \
+                       gedit \
              && rm -rf /var/lib/apt/lists/*
 
              
  # Install the latest Identifier package
 RUN ls -al
-RUN wget https://www.dropbox.com/s/x5nluq0zt548osk/SmartVis_Identifier-1.1.0.1331.6889ce-Linux.deb \
+RUN wget https://www.dropbox.com/s/i977t2f22ujxbt8/SmartVis_Identifier-1.1.0.1364.d802de-Linux.deb \
          --progress=bar:force:noscroll \
          -q \
          --show-progress
-RUN dpkg -i SmartVis_Identifier-1.1.0.1331.6889ce-Linux.deb
+RUN dpkg -i SmartVis_Identifier-1.1.0.1364.d802de-Linux.deb
 
 # Run as identifier user
 RUN export uid=1000 gid=1000 && \
@@ -53,6 +54,7 @@ RUN export uid=1000 gid=1000 && \
     usermod -a -G audio,video identifier
 USER identifier
 ENV HOME /home/identifier
+ENV EDITOR gedit 
 
 # Create dirs where data is stored and make sure identifier user has permission
 RUN mkdir -p "/home/identifier/.local" && chown -R identifier:identifier "/home/identifier/.local"
