@@ -37,11 +37,11 @@ RUN apt-get update && apt-get -y install \
              
  # Install the latest Identifier package
 RUN ls -al
-RUN wget https://www.dropbox.com/s/i977t2f22ujxbt8/SmartVis_Identifier-1.1.0.1364.d802de-Linux.deb \
+RUN wget https://www.dropbox.com/s/on8fa18kfejp4ke/SmartVis_Identifier-1.1.0.1375.d802de-Linux.deb \
          --progress=bar:force:noscroll \
          -q \
          --show-progress
-RUN dpkg -i SmartVis_Identifier-1.1.0.1364.d802de-Linux.deb
+RUN dpkg -i SmartVis_Identifier-1.1.0.1375.d802de-Linux.deb
 
 # Run as identifier user
 RUN export uid=1000 gid=1000 && \
