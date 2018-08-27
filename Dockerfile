@@ -32,16 +32,17 @@ RUN apt-get update && apt-get -y install \
                        libvlccore-dev \ 
                        vim \
                        gedit \
+                       geoclue-ubuntu-geoip \
              && rm -rf /var/lib/apt/lists/*
 
              
  # Install the latest Identifier package
 RUN ls -al
-RUN wget https://www.dropbox.com/s/on8fa18kfejp4ke/SmartVis_Identifier-1.1.0.1375.d802de-Linux.deb \
+RUN wget https://www.dropbox.com/s/4idgbxp771bqmik/SmartVis_Identifier-1.1.0.1444.1aefe3-Linux.deb \
          --progress=bar:force:noscroll \
          -q \
          --show-progress
-RUN dpkg -i SmartVis_Identifier-1.1.0.1375.d802de-Linux.deb
+RUN dpkg -i SmartVis_Identifier-1.1.0.1444.1aefe3-Linux.deb
 
 # Run as identifier user
 RUN export uid=1000 gid=1000 && \
@@ -62,9 +63,9 @@ RUN mkdir -p "/home/identifier/.config" && chown -R identifier:identifier "/home
 RUN mkdir -p "/home/identifier/.cache" && chown -R identifier:identifier "/home/identifier/.cache"
 
 # Run the app when the container is run
-ENV LD_LIBRARY_PATH=/opt/SmartVis\ Identifier\ 1.1.0/lib:${LD_LIBRARY_PATH}
-ENV PAPILLON_INSTALL_DIR=/opt/SmartVis\ Identifier\ 1.1.0
-CMD /opt/SmartVis\ Identifier\ 1.1.0/SmartVisIdentifier
+ENV LD_LIBRARY_PATH=/opt/identifier/lib:${LD_LIBRARY_PATH}
+ENV PAPILLON_INSTALL_DIR=/opt/identifier
+CMD /opt/identifier/SmartVisIdentifier
 
 
 
