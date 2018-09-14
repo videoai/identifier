@@ -32,17 +32,20 @@ RUN apt-get update && apt-get -y install \
                        libvlccore-dev \ 
                        vim \
                        gedit \
-                       geoclue-ubuntu-geoip \
+                       python-requests \
+                       python-psutil \
              && rm -rf /var/lib/apt/lists/*
 
-             
+
+
  # Install the latest Identifier package
 RUN ls -al
-RUN wget https://www.dropbox.com/s/4idgbxp771bqmik/SmartVis_Identifier-1.1.0.1444.1aefe3-Linux.deb \
-         --progress=bar:force:noscroll \
-         -q \
-         --show-progress
-RUN dpkg -i SmartVis_Identifier-1.1.0.1444.1aefe3-Linux.deb
+#RUN wget https://www.dropbox.com/s/89essafxlyjyhr9/SmartVis_Identifier-1.1.0.1485.fc15f8-NOLICENSE_INTERNAL-Linux.deb \
+#         --progress=bar:force:noscroll \
+ #        -q \
+#         --show-progress
+COPY SmartVis_Identifier-*-Linux.deb /root
+RUN dpkg -i /root/SmartVis_*-Linux.deb
 
 # Run as identifier user
 RUN export uid=1000 gid=1000 && \
@@ -53,14 +56,14 @@ RUN export uid=1000 gid=1000 && \
     chmod 0440 /etc/sudoers.d/identifier && \
     chown ${uid}:${gid} -R /home/identifier &&\
     usermod -a -G audio,video identifier
-USER identifier
 ENV HOME /home/identifier
-ENV EDITOR gedit 
+ENV EDITOR gedit
 
 # Create dirs where data is stored and make sure identifier user has permission
 RUN mkdir -p "/home/identifier/.local" && chown -R identifier:identifier "/home/identifier/.local"
 RUN mkdir -p "/home/identifier/.config" && chown -R identifier:identifier "/home/identifier/.config"
 RUN mkdir -p "/home/identifier/.cache" && chown -R identifier:identifier "/home/identifier/.cache"
+USER identifier
 
 # Run the app when the container is run
 ENV LD_LIBRARY_PATH=/opt/identifier/lib:${LD_LIBRARY_PATH}
