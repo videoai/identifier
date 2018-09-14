@@ -34,10 +34,11 @@ RUN apt-get update && apt-get -y install \
                        gedit \
                        python-requests \
                        python-psutil \
+                       python-pip \
              && rm -rf /var/lib/apt/lists/*
 
 
-
+RUN pip install oauth2 configparser
  # Install the latest Identifier package
 RUN ls -al
 #RUN wget https://www.dropbox.com/s/89essafxlyjyhr9/SmartVis_Identifier-1.1.0.1485.fc15f8-NOLICENSE_INTERNAL-Linux.deb \
