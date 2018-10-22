@@ -48,22 +48,6 @@ RUN ls -al
 COPY SmartVis_Identifier-*-Linux.deb /root
 RUN dpkg -i /root/SmartVis_*-Linux.deb
 
-# Run as identifier user
-RUN export uid=1000 gid=1000 && \
-    mkdir -p /home/identifier && \
-    echo "identifier:x:${uid}:${gid}:Identifier,,,:/home/identifier:/bin/bash" >> /etc/passwd && \
-    echo "identifier:x:${uid}:" >> /etc/group && \
-    echo "identifier ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/identifier && \
-    chmod 0440 /etc/sudoers.d/identifier && \
-    chown ${uid}:${gid} -R /home/identifier &&\
-    usermod -a -G audio,video identifier
-ENV HOME /home/identifier
-ENV EDITOR gedit
-
-# Create dirs where data is stored and make sure identifier user has permission
-RUN mkdir -p "/home/identifier/.local" && chown -R identifier:identifier "/home/identifier/.local"
-RUN mkdir -p "/home/identifier/.config" && chown -R identifier:identifier "/home/identifier/.config"
-RUN mkdir -p "/home/identifier/.cache" && chown -R identifier:identifier "/home/identifier/.cache"
 USER identifier
 
 # Run the app when the container is run
