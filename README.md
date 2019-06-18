@@ -40,6 +40,7 @@ nvidia-docker run \
 For convenience, you can simple run
 
 ```bash
+xhost +
 make run
 ```
 
