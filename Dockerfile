@@ -1,5 +1,4 @@
 # because we are running Identifier in X we need nvidia and opengl, so use their base image
-#FROM nvidia/opengl:1.0-glvnd-devel
 FROM nvidia/cudagl:9.2-runtime
 
 MAINTAINER Kieron Messer 
@@ -39,12 +38,8 @@ RUN apt-get update && apt-get -y install \
 
 
 RUN pip install oauth2 configparser
- # Install the latest Identifier package
-RUN ls -al
-#RUN wget https://www.dropbox.com/s/89essafxlyjyhr9/SmartVis_Identifier-1.1.0.1485.fc15f8-NOLICENSE_INTERNAL-Linux.deb \
-#         --progress=bar:force:noscroll \
- #        -q \
-#         --show-progress
+
+# Install the latest Identifier package
 COPY SmartVis_Identifier-*-Linux.deb /root
 RUN dpkg -i /root/SmartVis_*-Linux.deb
 
