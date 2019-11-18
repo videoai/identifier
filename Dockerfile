@@ -41,9 +41,14 @@ RUN apt-get update && apt-get -y install \
 RUN pip install oauth2 configparser
 
 # Install the latest Identifier package
+<<<<<<< HEAD
 # Note, you need to copy the latest Identifier deb package to this directory
 COPY SmartVis_*Linux*.deb /root
 RUN dpkg -i /root/SmartVis_*Linux*.deb
+=======
+COPY SmartVis_Identifier-*-Linux.deb /root
+RUN dpkg -i /root/SmartVis_*-Linux.deb
+>>>>>>> b99d852d241ad198f75d448f6a8571098e548af7
 
 USER identifier
 

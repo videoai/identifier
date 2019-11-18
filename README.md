@@ -32,7 +32,7 @@ make run
   
 ## Building the docker image
 ```bash
-nvidia-docker build -t videoai/identifier --force-rm=true .
+make build
 ```
 
 ## Running the docker image
@@ -55,6 +55,19 @@ nvidia-docker run \
               -v identifier_cache:/home/identifier/.cache \
               videoai/identifier 
 ```
+For convenience, you can simple run
+
+```bash
+xhost +
+make run
+```
+
+or to run in headless mode
+
+```bash
+make headless
+```
+
 ## Documentation
 
 You can get official documentation for SmartVis Identifier on our support portal.
