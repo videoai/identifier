@@ -1,7 +1,7 @@
-# because we are running Identifier in X we need nvidia and opengl, so use their base image
+# Because we are running Identifier in X we need nvidia and opengl, so use their base image
 #FROM nvidia/opengl:1.0-glvnd-devel
-FROM nvidia/cudagl:9.2-runtime
-
+#FROM nvidia/cudagl:9.2-runtime
+FROM nvidia/cudagl:10.1-runtime-ubuntu16.04
 MAINTAINER Kieron Messer 
 
 # We need a special version of FFMPEG
@@ -39,21 +39,18 @@ RUN apt-get update && apt-get -y install \
 
 
 RUN pip install oauth2 configparser
- # Install the latest Identifier package
-RUN ls -al
-#RUN wget https://www.dropbox.com/s/89essafxlyjyhr9/SmartVis_Identifier-1.1.0.1485.fc15f8-NOLICENSE_INTERNAL-Linux.deb \
-#         --progress=bar:force:noscroll \
- #        -q \
-#         --show-progress
-COPY SmartVis_Identifier-*-Linux.deb /root
-RUN dpkg -i /root/SmartVis_*-Linux.deb
+
+# Install the latest Identifier package
+# Note, you need to copy the latest Identifier deb package to this directory
+COPY SmartVis_*Linux*.deb /root
+RUN dpkg -i /root/SmartVis_*Linux*.deb
 
 USER identifier
 
 # Run the app when the container is run
 ENV LD_LIBRARY_PATH=/opt/identifier/lib:${LD_LIBRARY_PATH}
 ENV PAPILLON_INSTALL_DIR=/opt/identifier
-CMD /opt/identifier/SmartVisIdentifier
+CMD /opt/identifier/identifier_gui.sh
 
 
 

@@ -1,8 +1,15 @@
 build:
-	nvidia-docker build -t videoai/identifier --force-rm=true .
+	docker build -t videoai/identifier --force-rm=true .
 	
+bash-nox:
+	docker run --gpus all \
+		--rm \
+		-ti \
+		videoai/identifier \
+		bash
+
 bash:
-	nvidia-docker run \
+	docker run --gpus all \
 		--rm \
 		-ti \
 		-v /etc/localtime:/etc/localtime:ro \
@@ -14,15 +21,16 @@ bash:
 		bash
 	
 run:
-	nvidia-docker run \
+	docker run --gpus all \
 		--rm \
 		-ti \
 		--name identifier \
 		-e DISPLAY=${DISPLAY} \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		videoai/identifier
+
 headless:
-	nvidia-docker run \
+	docker run --gpus all \
 		--rm \
 		-ti \
 		--name identifier \
@@ -33,4 +41,4 @@ clean:
 	docker volume rm identifier_local identifier_config identifier_cache
 		
 running-bash:
-	nvidia-docker exec -it identifier bash
+	docker exec -it identifier bash

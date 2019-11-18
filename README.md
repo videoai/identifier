@@ -8,9 +8,27 @@ You need to have the right hardware
 
   * http://videoai-support.digitalbarriers.com/support/solutions/articles/4000122220-does-my-system-meet-the-requirements-for-identifier-
 
-You need to have nvidia-docker installed and working
+You need to have the docker version __19.03__ or above installed and working
+
+  * https://docs.docker.com/install/linux/docker-ce/ubuntu
+  
+You need to have the latest NVIDIA Container Toolkit installed and working
 
   *  https://github.com/NVIDIA/nvidia-docker
+  
+## Quick Start
+There is a Makefile with pre-configured commands and is the easiest way to build the Docker image and run the container.
+
+```bash
+# Download Identifier deb package from support site and copy to working directory
+cp ~/Downloads/SmartVis_Identifier-*.deb .
+# Build the Docker image
+make build
+# Enable X authentication
+xhost +
+# Run Identifier
+make run
+```
   
 ## Building the docker image
 ```bash
@@ -43,5 +61,3 @@ You can get official documentation for SmartVis Identifier on our support portal
 
   *  http://videoai-support.digitalbarriers.com/support/solutions/articles/4000115605-smartvis-identifier
 
-
-## Unofficial Documentation
