@@ -47,7 +47,8 @@ docker run  \
 There are a few tricks in this command.  
   * We need to make sure the app is displayed in your local X session.  
   * To persist the data across runs, we mount a local volume, i.e. **/buf/identifer**.  This gets mounted as 
-  **/home/identifier** in the running container.  The Identifier database and logs get written here. 
+  **/home/identifier** in the running container.  The Identifier database and logs get written here.  You can change
+  this location of the local volume - as long as you have write permission. 
   * To allow the Identifier process running in the Docker container to write to this local volume, we need to pass the 
   local user id running the Docker container.  This is done by passing the **LOCAL_USER_ID** environment to the Docker 
   container.  This gets set by running ```id -u ${USER}``` in your local shell. If this is not set then Identifier will 
