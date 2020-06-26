@@ -6,61 +6,31 @@ display on your Desktop.
 
 ## Pre-requisites
 
-You need to have the right hardware
+  * Suitable [hardware](http://videoai-support.digitalbarriers.com/support/solutions/articles/4000122220-does-my-system-meet-the-requirements-for-identifier-)
 
-  * http://videoai-support.digitalbarriers.com/support/solutions/articles/4000122220-does-my-system-meet-the-requirements-for-identifier-
+  * The host OS needs to be the latest [Ubuntu 18.04 x64](https://releases.ubuntu.com/18.04/).
 
-You need to have the docker version __19.03__ or above installed and working
-
-  * https://docs.docker.com/install/linux/docker-ce/ubuntu
+  * [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu) version 19.03, or above.
   
-You need to have the latest NVIDIA Container Toolkit installed and working
+  * [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker).
 
-  *  https://github.com/NVIDIA/nvidia-docker
+  * If you want to just run the container, you will need to provide your [Dockerhub](https://dockerhub.com) account details
+to your local Digital Barriers representative.  
 
-You need to have the latest SmartVis Identifier
+  * If you wish to build the Docker container, you need to have the latest SmartVis Identifier Ubuntu 18.04 installation 
+packages.  These can be obtained from the [Digital Barriers Support Site](http://videoai-support.digitalbarriers.com/support/home).
 
-  *  http://videoai-support.digitalbarriers.com/support/home
-
-You need to have a license.  You can obtain this from your local Digital Barriers representative. 
+  * Valid license file.  Obtain this from your local Digital Barriers representative. 
   
-## Quick Start
-There is a Makefile with pre-configured commands and is the easiest way to build 
-the Docker image and run the container.
-
-```bash
-# Choose the base image, we currently recommend Ubuntu-16.04
-cd Ubuntu-16.04
-# Download Identifier deb package from support site and copy to working directory
-cp ~/Downloads/SmartVis_Identifier-*.deb .
-# Copy across the license file 
-cp ~/Downloads/demoLicense.lic .
-# Build the Docker image (this can take some time)
-make build
-# Enable X authentication
-xhost +
-# Run Identifier
-make run
-```
-  
-## Building the docker image
-```bash
-make build
-```
-
-## Running the docker image
-
-As it runs in X session you need to allow the Docker container permission to run an X session locally.  The simplest way to do this is to allow everything....
-
-```bash
-xhost +
-```
-
-Next you can run Identifier with the following command.  
-
+## Quick Start - Run
 ```shell script
-# Run with UI.
-# Data persisted between runs in /buf/identifier
+# Log into Dockerhub
+docker login
+# Pull the Identifier image
+docker pull videoai/identifier:ubuntu-18.04
+# Allow X to run in your local X session
+xhost +
+# Run the Identifier
 docker run  \
     --rm \
     -ti \
@@ -83,16 +53,35 @@ There are a few tricks in this command.
   container.  This gets set by running ```id -u ${USER}``` in your local shell. If this is not set then Identifier will 
   not have permission to write data to the local volume.
 
-
-For convenience, you can simple run
-
-```bash
-xhost +
+There is a shortcut to run the Docker container, by using the Makefile.
+```shell script
 make run
 ```
 
-or to run in headless mode
+## Quick Start - Building
 
+There is a Makefile with pre-configured commands and is the easiest way to build 
+the Docker image and run the container.
+
+```shell script
+# Choose the base image, we currently recommend Ubuntu-16.04
+cd Ubuntu-16.04
+# Download Identifier deb package from support site and copy to working directory
+cp ~/Downloads/SmartVis_Identifier-*.deb .
+# Copy across the license file 
+cp ~/Downloads/demoLicense.lic .
+# Build the Docker image (this can take some time)
+make build
+# Enable X authentication
+xhost +
+# Run
+make run
+```
+
+To run the container you have just built, use the same command as above.
+  
+## Headless mode
+You can also run Identifier in headless mode.
 ```bash
 make headless
 ```
