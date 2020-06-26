@@ -16,13 +16,17 @@ RUN apt-get -y install software-properties-common \
                        gosu \
                        libgtk2.0-bin
 
+
 RUN apt-get -y install gstreamer1.0-plugins-base \
                        gstreamer1.0-plugins-good \
                        libgstreamer1.0-dev \
                        libgstreamer-plugins-base1.0-dev
 
-RUN apt-get install -y ffmpeg \
-                       vlc \
+RUN add-apt-repository -y ppa:jonathonf/ffmpeg-4 \
+                        && apt-get update \
+                        && apt-get install -y ffmpeg
+
+RUN apt-get install -y vlc \
                        libvlc-dev \
                        libvlccore-dev \
                        libavcodec-dev \
@@ -34,8 +38,11 @@ RUN apt-get install -y ffmpeg \
 
 
 # Note, you need to copy the latest Identifier deb package to this directory
-COPY SmartVis_*Ubuntu18.04*.deb /root
-RUN dpkg -i /root/SmartVis_*Ubuntu18.04*.deb
+COPY SmartVis_Identifier*-app.deb /root
+RUN apt-get install -y /root/SmartVis_Identifier*-app.deb
+COPY SmartVis_Identifier*-service.deb /root
+RUN apt-get install -y /root/SmartVis_Identifier*-service.deb
+COPY demoLicense.lic /opt/identifier
 
 # Run the app when the container is run
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh

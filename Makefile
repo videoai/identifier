@@ -1,7 +1,7 @@
 
 
 # Ubuntu 16.04 still preferred base for now
-BASE ?= Ubuntu-16.04
+BASE ?= Ubuntu-18.04
 TAG ?= latest
 
 build:
