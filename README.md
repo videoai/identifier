@@ -69,7 +69,7 @@ the Docker image and run the container.
 
 ```shell script
 # Choose the base image, we currently recommend Ubuntu-16.04
-cd Ubuntu-16.04
+cd Ubuntu-18.04
 # Download Identifier deb package from support site and copy to working directory
 cp ~/Downloads/SmartVis_Identifier-*.deb .
 # Copy across the license file 
