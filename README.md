@@ -20,7 +20,7 @@ to your local Digital Barriers representative.
   * If you wish to build the Docker container, you need to have the latest SmartVis Identifier Ubuntu 18.04 installation 
 packages.  These can be obtained from the [Digital Barriers Support Site](http://videoai-support.digitalbarriers.com/support/home).
 
-  * Valid license file.  Obtain this from your local Digital Barriers representative. 
+  * Running [SmartVis Face RLM Server](http://videoai-support.digitalbarriers.com/support/solutions/articles/4000155943-smartvis-face-server-and-mobile-6-2-5) with valid license. 
   
 ## Quick Start - Run
 ```shell script
@@ -37,6 +37,7 @@ docker run  \
     --name identifier \
     -e LOCAL_USER_ID=`id -u ${USER}` \
     -e DISPLAY=${DISPLAY} \
+    -e RLM_LICENSE=2764@192.168.86.197 \
     -v /etc/timezone:/etc/timezone:ro \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -53,6 +54,8 @@ There are a few tricks in this command.
   local user id running the Docker container.  This is done by passing the **LOCAL_USER_ID** environment to the Docker 
   container.  This gets set by running ```id -u ${USER}``` in your local shell. If this is not set then Identifier will 
   not have permission to write data to the local volume.
+  * You need provide the right IP address of the host that is running the SmartVisFace RLM service.  In the above example
+  the RLM service is running on 192.168.86.197.
 
 There is a shortcut to run the Docker container, by using the Makefile.
 ```shell script

@@ -34,6 +34,7 @@ RUN apt-get install -y vlc \
                        libavfilter-dev \
                        libavformat-dev \
                        libavutil-dev \
+                       iputils-ping \
              && rm -rf /var/lib/apt/lists/*
 
 
@@ -42,7 +43,7 @@ COPY SmartVis_Identifier*-app.deb /root
 RUN apt-get install -y /root/SmartVis_Identifier*-app.deb
 COPY SmartVis_Identifier*-service.deb /root
 RUN apt-get install -y /root/SmartVis_Identifier*-service.deb
-COPY demoLicense.lic /opt/identifier
+COPY license.lic /opt/identifier/license.lic
 
 # Run the app when the container is run
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh

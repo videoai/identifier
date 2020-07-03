@@ -4,7 +4,10 @@ TAG ?= ubuntu-18.04
 # You will need the Identifier installers and a license file
 build:
 	docker build -t videoai/identifier:${TAG} --force-rm=true .
-	
+
+build-no-cache:
+	docker build --no-cache -t videoai/identifier:${TAG} --force-rm=true .
+
 
 # Run with UI.
 # Data persisted between runs in /buf/identifier
@@ -15,6 +18,7 @@ run:
 		--name identifier \
 		-e LOCAL_USER_ID=`id -u ${USER}` \
 		-e DISPLAY=${DISPLAY} \
+		-e RLM_LICENSE=2764@192.168.86.197 \
 		-v /etc/timezone:/etc/timezone:ro \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -30,6 +34,7 @@ run-no-persistance:
 		--name identifier \
 		-e LOCAL_USER_ID=`id -u ${USER}` \
 		-e DISPLAY=${DISPLAY} \
+		-e RLM_LICENSE=2764@192.168.86.197 \
 		-v /etc/timezone:/etc/timezone:ro \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
