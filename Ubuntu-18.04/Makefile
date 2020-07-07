@@ -31,7 +31,7 @@ run-no-persistance:
 	docker run  \
 		--rm \
 		-ti \
-		--name identifier \
+		--name identifier-no-persistence \
 		-e LOCAL_USER_ID=`id -u ${USER}` \
 		-e DISPLAY=${DISPLAY} \
 		-e RLM_LICENSE=2764@192.168.86.197 \

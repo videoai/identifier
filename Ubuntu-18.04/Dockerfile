@@ -43,6 +43,7 @@ COPY SmartVis_Identifier*-app.deb /root
 RUN apt-get install -y /root/SmartVis_Identifier*-app.deb
 COPY SmartVis_Identifier*-service.deb /root
 RUN apt-get install -y /root/SmartVis_Identifier*-service.deb
+# For Identifier 1.3 we need to copy blank license.  For 1.4 we will not.
 COPY license.lic /opt/identifier/license.lic
 
 # Run the app when the container is run
